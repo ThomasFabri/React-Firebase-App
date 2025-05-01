@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Login from './pages/login';
+import Principal from './pages/principal';
+import Cadastro from './pages/cadastro';
+import Sobre from './pages/sobre';
 
 function App() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [mensagem, setMensagem] = useState('');
-
-  const validarLogin = () => {
-    if (email === 'eduardo.lino@pucpr.br' && senha === '123456') {
-      setMensagem('Acessado com sucesso!');
-    } else {
-      setMensagem('Usuário ou senha incorretos!');
-    }
-  };
-
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>Login</h1>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      /><br /><br />
-      <input
-        type="password"
-        placeholder="Senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      /><br /><br />
-      <button onClick={validarLogin}>Acessar</button>
-      <p>{mensagem}</p>
-    </div>
+    <Router>
+      <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+        <nav style={{ marginBottom: '20px' }}>
+          <Link to="/" style={{ marginRight: 10 }}>principal</Link>
+          <Link to="/cadastro" style={{ marginRight: 10 }}>Cadastro</Link>
+          <Link to="/sobre" style={{ marginRight: 10 }}>Sobre</Link>
+          <Link to="/login">Login</Link>
+        </nav>
+        
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Principal />} />
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/sobre" element={<Sobre />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
